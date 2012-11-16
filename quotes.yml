@@ -46,3 +46,9 @@
   created_at: 2012-11-06 01:02:09.312678203 +00:00
   deleted: false
   id: 9
+- quote: To keep things simple, I have avoided the C preprocessor and tricky statements
+    such as "if", "for", "do", "while", "switch", and "goto"
+  added_by: wsong
+  created_at: 2012-11-12 19:57:37.762225527 +00:00
+  deleted: false
+  id: 10
