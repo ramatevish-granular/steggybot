@@ -47,20 +47,4 @@ class Pokedex
     candidate_without_templates = candidate_without_templates.select{|line| ! line.include? "No Pokédex data is available."}
     candidate_without_templates = candidate_without_templates.select{|line| ! line.include? "Pokédex entry is unavailable at this time."}
   end
-
-
-  def get_list_of_pokemon
-    list_of_pokemon = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/List_of_Pok%C3%A9mon"))
-    list_of_pokemon = list_of_pokemon.css("table > tr > td > a")
-    # Remove 3 because othewise we get:
-    # nil
-    # #<Nokogiri::XML::Attr:0x16f7b64 name="title" value="Pokémon (video game series)">
-    # #<Nokogiri::XML::Attr:0xd0b6c8 name="title" value="Pokémon Red and Blue">
-
-    list_of_pokemon = list_of_pokemon.slice(0, list_of_pokemon.length - 3).
-      map{|pokemon_entry| pokemon_entry.
-      attributes["title"].
-      # Wiki tries to disambiguate, which well, kinda sucks for distance calculations
-      value.gsub(/\(Pokémon\)/, "")}
- end
 end
