@@ -9,6 +9,7 @@ bot = Cinch::Bot.new do
     c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Cinch::Plugins::Quotes, Pokedex, Youtube]
     c.plugins.options[Cinch::Plugins::Quotes] = {
       :quotes_file => "quotes.yml"
+      :pokedex => "pokedex.json"
     }
   end
 end
