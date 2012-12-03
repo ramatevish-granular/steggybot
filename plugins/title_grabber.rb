@@ -17,6 +17,7 @@ class TitleGrabber
 
   def listen(m)
     urls = URI.extract(m.message, "http")
+    urls.reject! {|url| url.include? "youtube.com"}
     titles = urls.map { |url| grab(url) }.compact
     unless titles.empty?
       m.reply titles.join(", ")

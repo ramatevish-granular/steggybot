@@ -6,6 +6,7 @@ require 'levenshtein'
 
 class Pokedex
   include Cinch::Plugin
+  # match /(all|poke)dex (.+)/
   match /pokedex (.+)/
 
   def get_list_of_pokemon
@@ -26,16 +27,25 @@ class Pokedex
   def execute(m, pokemon)
     list_of_pokemon = get_list_of_pokemon
     closest_candidate = list_of_pokemon[list_of_pokemon.map{ |this_pokemon| Levenshtein.distance(this_pokemon, pokemon)}.each_with_index.min.last]
-    m.reply(get_pokedex_entries(closest_candidate).sample, true)
+    closest_candidate.delete!(".")
+    pokedex_entries = get_pokedex_entries(URI::encode(closest_candidate))
+    m.reply(closest_candidate + " - " + pokedex_entries.sample, true )
+    # if m.to_s =~ /all/
+    #   m.reply(closest_candidate + " - " + pokedex_entries.join("\n"), true)
+    # else
+    #   m.reply(closest_candidate + " - " + pokedex_entries.sample, true)
+    # end
   end
 
   def get_pokedex_entries(pokemon_name)
-    file = open("http://bulbapedia.bulbagarden.net/wiki/#{pokemon_name}")
+    file = open("http://bulbapedia.bulbagarden.net/wiki/" + pokemon_name)
     lines = file.readlines
     # Sucks to pick it out this way, but well, yeah
     candidate_lines = lines.select{|line| line.include? "border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px; -icab-border-radius: 10px; -o-border-radius: 10px; background: #FFFFFF; border: 1px solid"}
     candidate_without_templates = candidate_lines.select {|line| ! line.include? "{{{"}
-    candidate_without_templates.map {|line| line.gsub(/<.*>/, "").strip}
+    candidate_without_templates = candidate_without_templates.map {|line| line.gsub(/<.*>/, "").strip}
+    candidate_without_templates = candidate_without_templates.select{|line| ! line.include? "No Pokédex data is available."}
+    candidate_without_templates = candidate_without_templates.select{|line| ! line.include? "Pokédex entry is unavailable at this time."}
   end
 
 

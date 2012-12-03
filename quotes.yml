@@ -52,3 +52,20 @@
   created_at: 2012-11-12 19:57:37.762225527 +00:00
   deleted: false
   id: 10
+- quote: As economics is known as the "The Miserable Science", software engineering
+    should be known as "The Doomed Discipline"
+  added_by: steggy
+  created_at: 2012-11-27 00:09:00.876864873 +00:00
+  deleted: false
+  id: 11
+- quote: ..known as "computer science" -- which, actually, is like referring to surgery
+    as "knife science"
+  added_by: steggy
+  created_at: 2012-11-27 22:28:42.244649860 +00:00
+  deleted: false
+  id: 12
+- quote: ! '"Look upon my BART stop, ye mighty, and despair."'
+  added_by: cat5isalive
+  created_at: 2012-11-29 00:38:33.730327116 +00:00
+  deleted: false
+  id: 13
