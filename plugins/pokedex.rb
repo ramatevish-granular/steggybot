@@ -2,7 +2,6 @@
 require 'cinch'
 require 'levenshtein'
 require 'json'
-
 class Pokedex
   include Cinch::Plugin
   # match /(all|poke)dex (.+)/
@@ -15,6 +14,7 @@ class Pokedex
   end
 
   def get_pokedex_json
+    p Dir.pwd
     pokedex_file = File.new(config[:pokedex], 'r')
     data = JSON.parse(pokedex_file.read)
     pokedex_file.close
@@ -39,3 +39,4 @@ class Pokedex
     m.reply(rv, true )
   end
 end
+
