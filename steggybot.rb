@@ -10,6 +10,9 @@ bot = Cinch::Bot.new do
     c.plugins.options[Cinch::Plugins::Quotes] = {
       :quotes_file => "quotes.yml"
     }
+    c.plugins.options[Cinch::Plugins::Pokedex] = {
+      :pokedex => "pokedex.json"
+    }
   end
 end
 
