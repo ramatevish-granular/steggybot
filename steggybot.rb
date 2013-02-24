@@ -6,7 +6,7 @@ bot = Cinch::Bot.new do
     c.server = "irc.freenode.net"
     c.nick = "steggybot"
     c.channels = ["#csua", "#csuatest"]
-    c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, YaBish, Roll, WhoAreThesePeople]
+    c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, YaBish, Roll, WhoAreThesePeople, PlusPlus]
     c.plugins.options[Quotes] = {
       :quotes_file => "quotes.yml"
     }
@@ -15,6 +15,9 @@ bot = Cinch::Bot.new do
     }
     c.plugins.options[WhoAreThesePeople] = {
       :identities => "identities.yml"
+    }
+    c.plugins.options[PlusPlus] = {
+      :plusplus => "plusplus.yml"
     }
   end
 end
