@@ -94,3 +94,39 @@ tullidil:
   :name: a Noobidil
   :added_by: whunt
   :updated_at: !ruby/object:DateTime 2013-02-20 20:00:11.305169003 +00:00
+sushis:
+  :name: heidi
+  :added_by: wsong
+  :updated_at: !ruby/object:DateTime 2013-03-01 18:12:02.020550975 +00:00
+kiwis:
+  :name: heidi
+  :added_by: wsong
+  :updated_at: !ruby/object:DateTime 2013-03-02 00:04:58.759563332 +00:00
+angie:
+  :name: actually little chris. Do not be fooled
+  :added_by: whunt
+  :updated_at: !ruby/object:DateTime 2013-03-02 01:11:31.928665846 +00:00
+everyone:
+  :name: a feature that has not been implemented yet
+  :added_by: whunt
+  :updated_at: !ruby/object:DateTime 2013-03-02 01:13:47.443978078 +00:00
+mimblewhimble:
+  :name: Luke
+  :added_by: angie
+  :updated_at: !ruby/object:DateTime 2013-03-02 01:51:02.017336670 +00:00
+mcint:
+  :name: loren
+  :added_by: wsong
+  :updated_at: !ruby/object:DateTime 2013-03-04 17:29:39.286906971 +00:00
+acanyon:
+  :name: amanda canyon
+  :added_by: czhang
+  :updated_at: !ruby/object:DateTime 2013-03-05 23:45:02.017555159 +00:00
+ians:
+  :name: based god
+  :added_by: ians
+  :updated_at: !ruby/object:DateTime 2013-03-05 23:50:01.823814647 +00:00
+goteampeach:
+  :name: angela
+  :added_by: czhang1
+  :updated_at: !ruby/object:DateTime 2013-03-06 01:08:49.416697064 +00:00
