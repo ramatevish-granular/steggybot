@@ -3,7 +3,11 @@ require 'cinch'
 class Roll
   include Cinch::Plugin
   match /roll (.+)[D|d](.+)/, method: :roll
-
+  @help_hash = {
+    :roll => "Usage: !roll xDy
+Example: !roll 5d20
+Returns the values of the dice rolled, as well as their sum"
+  }
 
   def roll(m, num_dice, range)
     results = []
