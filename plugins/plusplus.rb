@@ -11,30 +11,52 @@ Returns the plusplus values from all other users about user NAME",
 Example !persons_feelings steggybot
 Returns the a hash of the people that that NAME has plusplus'ed, and the number of times."
   }
-  match /karma (.*)/i, method: :lookup
+  match /karma (.*)/i, method: :lookup_sum
   listen_to :channel
   match /persons_feelings (.*)/i, method: :lookup_feelings
   match /person (.*)/i, method: :lookup
 
+  # lookup looks up someone's name and replies with their karma in the
+  # form:
+  # czhang's karma: {"czhan.g"=>1}, {"skimbre.l"=>1}
   def lookup(m, name)
     values = plusplus_file
     # Don't want to always nameping people, so we mangle the name a little
     values = values.keys.map { |key| {mangle_string(key) => values[key][name]} if values[key][name] }.compact
-    result = values.empty? ? "no results" : values
+    result = values.empty? ? ["no results"] : values
     result = "#{name}'s karma: " + result.join(", ")
     m.reply(result)
   end
 
-  def mangle_string(string)
-    string.chop + "." + string[-1]
+  # This looks up someone's karma and replies with the total sum in
+  # the form:
+  # whunt: 9001
+  def lookup_sum(m, name)
+    values = plusplus_file
+    values = values.keys.map { |key| {mangle_string(key) => values[key][name]} if values[key][name] }.compact
+    if values.empty?
+      m.reply("no results for #{name}")
+    else
+      total = values.map(&:values).flatten.inject(:+)
+      m.reply("#{name}'s total karma: #{total}")
+    end
   end
 
+  # This looks up the people that someone has given karma to. It
+  # replies in the form:
+  # {"skimbre.l"=>-1, "czhan.g" => 1}
   def lookup_feelings(m, name)
     values = plusplus_file
     base_hash = (values.keys.include? name) ? values[name] : "no results"
     result = base_hash.keys.map {|key| [mangle_string(key), base_hash[key]] }
     result = Hash[result]
     m.reply(result)
+  end
+
+  # This mangles a name by inserting a '.'
+  # It is used so this bot does not ping people multiple times
+  def mangle_string(string)
+    string.chop + "." + string[-1]
   end
 
   def initialize(*args)
