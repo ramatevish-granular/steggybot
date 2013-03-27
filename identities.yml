@@ -47,9 +47,9 @@ virulently:
   :added_by: steggy_meeting
   :updated_at: !ruby/object:DateTime 2013-02-13 00:28:00.678122180 +00:00
 hail_spacecake:
-  :name: greg
-  :added_by: steggy_meeting
-  :updated_at: !ruby/object:DateTime 2013-02-13 00:46:51.152004835 +00:00
+  :name: Shuflin every day
+  :added_by: whunt
+  :updated_at: !ruby/object:DateTime 2013-03-15 20:55:41.653387200 +00:00
 steggy_meeting:
   :name: ! '"steggy, but at a meeting"'
   :added_by: steggy_meeting
@@ -91,9 +91,9 @@ steggybot:
   :added_by: whunt
   :updated_at: !ruby/object:DateTime 2013-02-19 19:07:41.047552113 +00:00
 tullidil:
-  :name: a Noobidil
-  :added_by: whunt
-  :updated_at: !ruby/object:DateTime 2013-02-20 20:00:11.305169003 +00:00
+  :name: Neil Strauss
+  :added_by: tullidil
+  :updated_at: !ruby/object:DateTime 2013-03-12 19:26:08.684971632 +00:00
 sushis:
   :name: heidi
   :added_by: wsong
@@ -119,14 +119,88 @@ mcint:
   :added_by: wsong
   :updated_at: !ruby/object:DateTime 2013-03-04 17:29:39.286906971 +00:00
 acanyon:
-  :name: amanda canyon
-  :added_by: czhang
-  :updated_at: !ruby/object:DateTime 2013-03-05 23:45:02.017555159 +00:00
+  :name: superwoman
+  :added_by: acanyon
+  :updated_at: !ruby/object:DateTime 2013-03-07 00:21:40.881123186 +00:00
 ians:
   :name: based god
   :added_by: ians
   :updated_at: !ruby/object:DateTime 2013-03-05 23:50:01.823814647 +00:00
 goteampeach:
-  :name: angela
-  :added_by: czhang1
-  :updated_at: !ruby/object:DateTime 2013-03-06 01:08:49.416697064 +00:00
+  :name: angela (ed's gf)
+  :added_by: czhang
+  :updated_at: !ruby/object:DateTime 2013-03-07 22:00:07.967314786 +00:00
+jungziege:
+  :name: black ian
+  :added_by: czhang
+  :updated_at: !ruby/object:DateTime 2013-03-06 19:26:21.536887425 +00:00
+blackian:
+  :name: black ian
+  :added_by: blackian
+  :updated_at: !ruby/object:DateTime 2013-03-06 19:28:30.885750926 +00:00
+sarmiento:
+  :name: not magnum
+  :added_by: blackian
+  :updated_at: !ruby/object:DateTime 2013-03-06 19:49:16.456633901 +00:00
+davis:
+  :name: white ian
+  :added_by: czhang
+  :updated_at: !ruby/object:DateTime 2013-03-06 19:50:36.673238502 +00:00
+laughinghan:
+  :name: mordred
+  :added_by: czhang
+  :updated_at: !ruby/object:DateTime 2013-03-07 00:31:10.486539472 +00:00
+laughinhan:
+  :name: mordred
+  :added_by: shijing
+  :updated_at: !ruby/object:DateTime 2013-03-07 00:31:11.149988951 +00:00
+adama:
+  :name: a cylon
+  :added_by: wsong
+  :updated_at: !ruby/object:DateTime 2013-03-07 00:31:13.907373114 +00:00
+bordicon:
+  :name: a cylon
+  :added_by: songe
+  :updated_at: !ruby/object:DateTime 2013-03-07 00:32:11.845222451 +00:00
+gaius:
+  :name: fucking a cylon
+  :added_by: czhang
+  :updated_at: !ruby/object:DateTime 2013-03-07 00:32:46.425318958 +00:00
+yo_momma:
+  :name: a big bitch
+  :added_by: skimbrel
+  :updated_at: !ruby/object:DateTime 2013-03-09 00:15:37.610585195 +00:00
+infair:
+  :name: more than fair
+  :added_by: infair
+  :updated_at: !ruby/object:DateTime 2013-03-09 00:18:26.969788051 +00:00
+the_real_slim_shady:
+  :name: whoever is standing
+  :added_by: riderofrohan0
+  :updated_at: !ruby/object:DateTime 2013-03-09 00:19:00.245318676 +00:00
+olivm:
+  :name: loren
+  :added_by: wsong
+  :updated_at: !ruby/object:DateTime 2013-03-13 19:09:50.623634493 +00:00
+jocob:
+  :name: biotic kanye
+  :added_by: jlhawn_
+  :updated_at: !ruby/object:DateTime 2013-03-15 20:56:29.875151841 +00:00
+jayferd:
+  :name: the magical porting factory that takes things from emacs and returns them
+    as things from vim
+  :added_by: whunt
+  :updated_at: !ruby/object:DateTime 2013-03-19 18:34:55.677185813 +00:00
+angie2:
+  :name: a catalyst for steggybot feature arguments
+  :added_by: whunt
+  :updated_at: !ruby/object:DateTime 2013-03-18 20:26:00.450223622 +00:00
+foo:
+  :name: a sad test subject forgotten in the dust of the thousands of "fast-paced"
+    start-ups
+  :added_by: whunt
+  :updated_at: !ruby/object:DateTime 2013-03-18 20:34:01.968589435 +00:00
+doves:
+  :name: a wild sam
+  :added_by: heidi
+  :updated_at: !ruby/object:DateTime 2013-03-22 23:25:05.892580611 +00:00

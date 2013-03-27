@@ -9,7 +9,7 @@ class TitleGrabber
 
   def grab(url)
     page = Nokogiri::HTML(open(url))
-    return "This page doesn't appear to have a title" if page.css("title").nil?
+    return "This page doesn't appear to have a title" if page.css("title").empty?
     return page.css("title").first.text
   rescue OpenURI::HTTPError
     nil
