@@ -35,6 +35,8 @@ class Pazudora
     fc = pargs[1]
     # add it to the list
     fcs = load_data || {}
+    if fc ~= [0-9]{9}
+      fc = fc.reverse.gsub(%r{([0-9]{3}(?=([0-9])))},".").reverse
 
     if fcs[username.downcase] && (fcs[username.downcase][:added_by] == username.downcase)
       if m.user.nick.downcase == username.downcase
@@ -93,6 +95,18 @@ class Pazudora
       users.each{ |user| r=r+"#{mangle(user)}:#{fcs[user][:fc]} " }
       m.reply r
     }
+  end
+
+  def pazudora_group(m,args)
+    pargs = args.split
+    username = pargs[0]
+    if load_data[username.downcase]
+      fc = load_data[username.downcase][:fc]
+      group = (Integer(fc.split(",")[0][2]) % 5 + 65).chr
+      m.reply "#{m.user.nick}: #{mangle(username)}'s group is #{group}"
+    else
+      m.reply "#{m.user.nick}: #{mangle(username)}'s friend code is not listed. Please use the add command to add it."
+    end
   end
 
   protected
