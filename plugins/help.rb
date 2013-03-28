@@ -1,5 +1,5 @@
 require 'cinch'
-require 'debugger'
+
 class Help
   include Cinch::Plugin
   match /help( \w+)?(.*)?/i, method: :help

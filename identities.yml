@@ -11,11 +11,11 @@ stufflebear:
   :added_by: steggy_meeting
   :updated_at: !ruby/object:DateTime 2013-02-11 05:48:32.624819340 +00:00
 john_galt:
-  :name: ! '"Randian Hero"'
+  :name: '"Randian Hero"'
   :added_by: steggy_meeting
   :updated_at: !ruby/object:DateTime 2013-02-11 18:24:33.604853946 +00:00
 bird:
-  :name: ! '"The word"'
+  :name: '"The word"'
   :added_by: steggy
   :updated_at: !ruby/object:DateTime 2013-02-11 19:30:42.143053785 +00:00
 wsong:
@@ -27,7 +27,7 @@ nfair:
   :added_by: nfair
   :updated_at: !ruby/object:DateTime 2013-02-19 19:16:54.458409521 +00:00
 skimbrel:
-  :name: ! '"corrected"'
+  :name: '"corrected"'
   :added_by: skimbrel
   :updated_at: !ruby/object:DateTime 2013-02-13 00:30:54.424832899 +00:00
 steggy:
@@ -43,7 +43,7 @@ heidi:
   :added_by: whunt
   :updated_at: !ruby/object:DateTime 2013-02-11 19:56:20.760960197 +00:00
 virulently:
-  :name: ! '"Asterisms opinion against the use of drone strikes"'
+  :name: '"Asterisms opinion against the use of drone strikes"'
   :added_by: steggy_meeting
   :updated_at: !ruby/object:DateTime 2013-02-13 00:28:00.678122180 +00:00
 hail_spacecake:
@@ -51,7 +51,7 @@ hail_spacecake:
   :added_by: whunt
   :updated_at: !ruby/object:DateTime 2013-03-15 20:55:41.653387200 +00:00
 steggy_meeting:
-  :name: ! '"steggy, but at a meeting"'
+  :name: '"steggy, but at a meeting"'
   :added_by: steggy_meeting
   :updated_at: !ruby/object:DateTime 2013-02-13 00:48:33.909658534 +00:00
 jag:
@@ -71,7 +71,7 @@ asterism:
   :added_by: steggy
   :updated_at: !ruby/object:DateTime 2013-02-14 18:57:17.276003440 +00:00
 czhang:
-  :name: the coolest duder ever
+  :name: your majesty
   :added_by: czhang
   :updated_at: !ruby/object:DateTime 2013-02-14 19:04:02.404956045 +00:00
 whunt1:
@@ -159,9 +159,9 @@ adama:
   :added_by: wsong
   :updated_at: !ruby/object:DateTime 2013-03-07 00:31:13.907373114 +00:00
 bordicon:
-  :name: a cylon
-  :added_by: songe
-  :updated_at: !ruby/object:DateTime 2013-03-07 00:32:11.845222451 +00:00
+  :name: is prepared to 'go robot' for optimus prime
+  :added_by: sean___
+  :updated_at: !ruby/object:DateTime 2013-03-27 22:40:12.558413526 +00:00
 gaius:
   :name: fucking a cylon
   :added_by: czhang
@@ -187,10 +187,9 @@ jocob:
   :added_by: jlhawn_
   :updated_at: !ruby/object:DateTime 2013-03-15 20:56:29.875151841 +00:00
 jayferd:
-  :name: the magical porting factory that takes things from emacs and returns them
-    as things from vim
-  :added_by: whunt
-  :updated_at: !ruby/object:DateTime 2013-03-19 18:34:55.677185813 +00:00
+  :name: jay
+  :added_by: jayferd
+  :updated_at: !ruby/object:DateTime 2013-03-27 22:39:36.016134004 +00:00
 angie2:
   :name: a catalyst for steggybot feature arguments
   :added_by: whunt
@@ -204,3 +203,11 @@ doves:
   :name: a wild sam
   :added_by: heidi
   :updated_at: !ruby/object:DateTime 2013-03-22 23:25:05.892580611 +00:00
+tobefree:
+  :name: hehe
+  :added_by: tobefree
+  :updated_at: !ruby/object:DateTime 2013-03-27 18:35:08.727808982 +00:00
+nooblet:
+  :name: WHUNT
+  :added_by: czhang
+  :updated_at: !ruby/object:DateTime 2013-03-27 18:34:49.580874666 +00:00

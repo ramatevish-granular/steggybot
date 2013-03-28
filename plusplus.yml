@@ -7,7 +7,7 @@ steggy:
   dude: 1
   nfair: 1
   skimbrel: 1
-  ! 'just showing off ': -1
+  'just showing off ': -1
   pitchfork reviews: 1
   graze: 1
   the regex isn't .*: 1
@@ -21,17 +21,18 @@ steggy:
   coffee: 1
   on-call: -1
   sleep deprivation: -1
-  ! 'also, damnit ians, don''t say just ': 1
-  ! 'quick, say ': -1
+  'also, damnit ians, don''t say just ': 1
+  'quick, say ': -1
   Asterism: 1
   czhang: 1
   macros: 1
   emacs: 1
   non modal editing: 1
   clickodrome: -1
+  steggybot: 1
 czhang:
   steggy: 3
-  czhang: 1
+  czhang: 2
   skimbrel: 4
   mimblewhimble: 1
   kiwis: 2
@@ -47,13 +48,14 @@ czhang:
   spaceteam: 2
   grazebox: 4
   textmate: 1
-  ! '#csua': 1
+  '#csua': 1
   pazudora: 1
   stupid puzzle dragon bullshit: 1
   omg grazebox: 1
   duck fat: 1
   fawkes: 1
   doves: 1
+  (notice) ----- ---------------------- ---: -1
 skimbrel:
   C: 2
   wsong: 5
@@ -75,6 +77,7 @@ skimbrel:
   steggybot: -9
   ruby: -1
   duck fat: 1
+  sean___: 1
 sushis:
   nfair: 1
 nfair:
@@ -101,7 +104,7 @@ whunt:
   ians: -4
   names_that_end_in_1: -1
   steggy: 1
-  ! '#csua': 1
+  '#csua': 1
   laughinghan: 1
   frakking: -1
   skimbrel: 2
@@ -116,6 +119,7 @@ Asterism:
   netrunner: 1
   ians: 1
   also netrunner: 1
+  wsong: 1
 ians:
   ians: 2
   pazudora: 2
@@ -136,8 +140,9 @@ wsong:
   czhang: 1
   stupid puzzle dragon bullshit: -1
   spaceteam: 1
+  steggybot: 4
 angie:
-  ! 'oh, so when skimbrel was ++ or ': -1
+  'oh, so when skimbrel was ++ or ': -1
   skimbrel: 1
   steggybot: 1
   raisins: -1
@@ -163,6 +168,7 @@ riderofrohan0:
   rain: -1
   steggybot: 1
   giving_context: 1
+  ians: 1
 whunt1:
   graze: -1
 sean___:
@@ -190,6 +196,7 @@ jayferd:
   whunt: 1
   ians: 1
   duck fat: -1
+  elk hot dogs: -1
 heidi:
   baltar: -3
   graze: 1
@@ -210,3 +217,6 @@ heidi:
   jlhawn: 1
 sean____:
   spaceteam: 1
+nooblet:
+  wsong: 1
+  Ncoelius: -1
