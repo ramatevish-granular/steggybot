@@ -14,6 +14,29 @@ class Pazudora
   match /puzzlemon ([\w-]+) *(.+)*/i, method: :pazudora
   match /puzzledex (.+)*/i, method: :pazudora_lookup
   
+  @help_string = <<-eos
+  Puzzle and Dragons (on iOS and Android) utility functions. Mostly collects friend codes and tracks the daily dungeon.
+  Its commands are aliased to pazudora, p&d, pad,  and puzzlemon.
+  eos
+  @help_hash = {
+    :add => "Usage: !puzzlemon add NAME CODE
+Example: !puzzlemon add steggybot 123,456,789
+Adds user's code to the list of friend codes",
+    :group => "Usage: !puzzlemon group NAME
+Example !puzzlemon group steggybot
+Returns the daily dungeon group that the user belongs to.",
+    :dailies => "Usage: !puzzlemon dailies
+Example !puzzlemon dailies
+Returns the times (and type) of today's daily dungeons, split by group. If called by
+a registered player, also reminds them of their group id.",
+    :lookup => "Usage: !(puzzlemon lookup|puzzledex) (NAME|ID)
+Example !puzzlemon lookup horus, !puzzledex 603
+Returns a description of the puzzlemon. If none is found, returns a pseudorandom (hashed) one.",
+    :list => "Usage: !puzzlemon list
+Example !puzzlemon list
+Returns a list of everyone's friends codes."
+  }
+  
   def initialize(*args)
     super
     @pddata = config[:pddata]
@@ -96,8 +119,8 @@ class Pazudora
   
   def pazudora_list(m,args)
     friend_codes = load_data || {}
-    friend_codes.keys.each_slice(3) { |users| 
-      r = "#{m.user.nick}: "
+    friend_codes.keys.each_slice(3).with_index { |users, i| 
+      r = i == 0 ? "#{m.user.nick}: " : ""
       users.each{ |user| r=r+"#{mangle(user)}:#{friend_codes[user][:friend_code]} " }
       m.reply r
     }
@@ -141,6 +164,16 @@ class Pazudora
   def pazudora_lookup(m, args)
     identifier = args
     info = get_puzzlemon_info(URI.encode(identifier))
+    
+    #Bypass puzzledragonx's "default to meteor dragon if you can't find the puzzlemon" mechanism to
+    #get a pseudorandom puzzlemon (up to the max currently released puzzlemon) instead.
+    meteor_dragon_id = "211"
+    highest_puzzledex_id = 603
+    
+    if info.css(".name").children.first.text == "Meteor Volcano Dragon" && !(identifier.start_with?("Meteor") || identifier == meteor_dragon_id)
+      num = (identifier.hash % highest_puzzledex_id) + 1
+      info = get_puzzlemon_info(URI.encode(num.to_s))
+    end
     
     desc = info.css("meta [name=description]").first.attributes["content"].text
     desc.gsub!(/&amp;/, "&")
