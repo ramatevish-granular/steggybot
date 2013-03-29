@@ -4,9 +4,8 @@ require 'nokogiri'
 class Pazudora
   include Cinch::Plugin
   
-  PUZZLEMON_URL = "http://www.puzzledragonx.com/en/option.asp?utc=-8"
+  PUZZLEMON_BASE_URL = "http://www.puzzledragonx.com/en/"
   
-  #listen_to :channel
   match /pazudora ([\w-]+) *(.+)*/i, method: :pazudora
   match /stupidpuzzledragonbullshit ([\w-]+) *(.+)*/i, method: :pazudora
   match /stupiddragonpuzzlebullshit ([\w-]+) *(.+)*/i, method: :pazudora
@@ -20,6 +19,8 @@ class Pazudora
     @pddata = config[:pddata]
   end
   
+  #Any public method named pazudora_[something] is external and
+  #can be accessed by the user using the construction "!puzzlemon something [args]".
   def pazudora (m, cmd, args)
     subr = cmd.downcase.chomp
     begin
@@ -37,6 +38,7 @@ class Pazudora
     pargs = args.split
     username = pargs[0]
     friend_code = pargs[1]
+    
     # add it to the list
     friend_codes = load_data || {}
     if friend_code =~ /[0-9]{9}/
@@ -114,11 +116,13 @@ class Pazudora
   end
   
   def pazudora_dailies(m, args)
+    daily_url = PUZZLEMON_BASE_URL + "option.asp?utc=-8"
+    
     username = args.split[0] || m.user.nick
     friend_code = load_data[username.downcase][:friend_code] rescue nil
     group_num = friend_code ? group_number_from_friend_code(friend_code) : nil
     
-    @daily_page ||= Nokogiri::HTML(open(PUZZLEMON_URL))
+    @daily_page ||= Nokogiri::HTML(open(daily_url))
     @event_data ||= @daily_page.css(".event3")
     @event_rewards ||= @daily_page.css(".limiteddragon")
     
@@ -171,7 +175,7 @@ class Pazudora
   end
   
   def get_puzzlemon_info(name_or_number)
-    search_url = "http://www.puzzledragonx.com/en/monster.asp?n=#{name_or_number}"
+    search_url = PUZZLEMON_BASE_URL + "monster.asp?n=#{name_or_number}"
     puzzlemon_info = Nokogiri::HTML(open(search_url))
   end
 end
