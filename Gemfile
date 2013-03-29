@@ -3,8 +3,6 @@
 source 'https://rubygems.org'
 source 'http://gems.github.com'
 
-# gem "rails", "2.3.2", :require => nil
-
 gem 'cinch'
 gem 'levenshtein'
 gem 'nokogiri'

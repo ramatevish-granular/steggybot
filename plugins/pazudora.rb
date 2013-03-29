@@ -1,21 +1,26 @@
 require 'cinch'
+require 'nokogiri'
 
 class Pazudora
   include Cinch::Plugin
   
-  listen_to :channel
+  PUZZLEMON_BASE_URL = "http://www.puzzledragonx.com/en/"
+  
   match /pazudora ([\w-]+) *(.+)*/i, method: :pazudora
   match /stupidpuzzledragonbullshit ([\w-]+) *(.+)*/i, method: :pazudora
   match /stupiddragonpuzzlebullshit ([\w-]+) *(.+)*/i, method: :pazudora
   match /p&d ([\w-]+) *(.+)*/i, method: :pazudora
   match /pad ([\w-]+) *(.+)*/i, method: :pazudora
   match /puzzlemon ([\w-]+) *(.+)*/i, method: :pazudora
+  match /puzzledex (.+)*/i, method: :pazudora_lookup
   
   def initialize(*args)
     super
     @pddata = config[:pddata]
   end
   
+  #Any public method named pazudora_[something] is external and
+  #can be accessed by the user using the construction "!puzzlemon something [args]".
   def pazudora (m, cmd, args)
     subr = cmd.downcase.chomp
     begin
@@ -33,6 +38,7 @@ class Pazudora
     pargs = args.split
     username = pargs[0]
     friend_code = pargs[1]
+    
     # add it to the list
     friend_codes = load_data || {}
     if friend_code =~ /[0-9]{9}/
@@ -48,7 +54,6 @@ class Pazudora
       else
         friend_codes[username.downcase] = {:friend_code => friend_code, :added_by => m.user.nick.downcase, :updated_at => DateTime.now}
       end
-      
       # write it to the file
       output = File.new(@pddata, 'w')
       output.puts YAML.dump(friend_codes)
@@ -110,6 +115,38 @@ class Pazudora
     end
   end
   
+  def pazudora_dailies(m, args)
+    daily_url = PUZZLEMON_BASE_URL + "option.asp?utc=-8"
+    
+    username = args.split[0] || m.user.nick
+    friend_code = load_data[username.downcase][:friend_code] rescue nil
+    group_num = friend_code ? group_number_from_friend_code(friend_code) : nil
+    
+    @daily_page ||= Nokogiri::HTML(open(daily_url))
+    @event_data ||= @daily_page.css(".event3")
+    @event_rewards ||= @daily_page.css(".limiteddragon")
+    
+    @rewards = parse_daily_dungeon_rewards(@event_rewards)
+    m.reply "Dungeons today are: #{@rewards.join(', ')}"
+    
+    (0..4).each do |i|
+      m.reply "Group #{(i + 65).chr}: #{@event_data[i].text}, #{@event_data[i + 5].text}, #{@event_data[i + 10].text}"
+    end
+    
+    if group_num
+      m.reply "User #{username} is in group #{(group_num + 65).chr}"
+    end
+  end
+  
+  def pazudora_lookup(m, args)
+    identifier = args
+    info = get_puzzlemon_info(URI.encode(identifier))
+    
+    desc = info.css("meta [name=description]").first.attributes["content"].text
+    desc.gsub!(/&amp;/, "&")
+    m.reply desc
+  end
+  
   protected
   
   def mangle(s)
@@ -121,6 +158,25 @@ class Pazudora
     friend_codes = YAML.load(datafile.read)
     datafile.close
     return friend_codes
+  end
+  
+  def group_number_from_friend_code(friend_code)
+    return Integer(friend_code.split(",")[0][2]) % 5
+  end
+  
+  def parse_daily_dungeon_rewards(rewards)
+    puzzlemon_numbers = [
+    rewards[0].children.first.attributes["src"].value.match(/thumbnail\/(\d+).png/)[1],
+    rewards[5].children.first.attributes["src"].value.match(/thumbnail\/(\d+).png/)[1],
+    rewards[10].children.first.attributes["src"].value.match(/thumbnail\/(\d+).png/)[1]]
+    
+    puzzlemon_numbers.map{|x| 
+      get_puzzlemon_info(x).css(".name").children.first.text rescue "Unrecognized Name" }
+  end
+  
+  def get_puzzlemon_info(name_or_number)
+    search_url = PUZZLEMON_BASE_URL + "monster.asp?n=#{name_or_number}"
+    puzzlemon_info = Nokogiri::HTML(open(search_url))
   end
 end
 
