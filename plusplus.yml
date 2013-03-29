@@ -24,7 +24,7 @@ steggy:
   'also, damnit ians, don''t say just ': 1
   'quick, say ': -1
   Asterism: 1
-  czhang: 1
+  czhang: 2
   macros: 1
   emacs: 1
   non modal editing: 1
@@ -40,7 +40,7 @@ czhang:
   steggybot: 1
   graze: 2
   baltar: -3
-  pengies: 3
+  pengies: 4
   raisins: -1
   haters: 1
   angie: 1
@@ -78,6 +78,7 @@ skimbrel:
   ruby: -1
   duck fat: 1
   sean___: 1
+  orange and black hordes on muni: -1
 sushis:
   nfair: 1
 nfair:
@@ -90,7 +91,7 @@ whunt:
   angie: 2
   graze: -.inf
   baltar: 4
-  pengies: 2
+  pengies: 3
   googleio: -1
   grazebox: -14
   cute kittens: 1
@@ -101,7 +102,7 @@ whunt:
   asterism: 2
   spaceteam: 1
   netrunner: 1
-  ians: -4
+  ians: -2
   names_that_end_in_1: -1
   steggy: 1
   '#csua': 1
@@ -109,7 +110,7 @@ whunt:
   frakking: -1
   skimbrel: 2
   macros: 2
-  czhang: 1
+  czhang: 3
   fawkes: 1
 Asterism:
   steggybot: 2
@@ -136,6 +137,7 @@ ians:
   pengdras: 1
   coffee: 1
   pandas: 1
+  A's: 1
 wsong:
   czhang: 1
   stupid puzzle dragon bullshit: -1
@@ -207,7 +209,7 @@ heidi:
   piggies: 1
   mayonnaise: 1
   frakking: -1
-  pengies: 2
+  pengies: 3
   boys in suits: 1
   skimbrel: 1
   facial hair: -1
@@ -215,8 +217,16 @@ heidi:
   doves: 1
   the super trooper: 1
   jlhawn: 1
+  As: -2
 sean____:
   spaceteam: 1
 nooblet:
   wsong: 1
   Ncoelius: -1
+bordicon:
+  czhang: 1
+  whunt: 1
+judge_dredd:
+  czhang: 1
+tullidil:
+  heidi: 1
