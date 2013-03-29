@@ -211,3 +211,11 @@ nooblet:
   :name: WHUNT
   :added_by: czhang
   :updated_at: !ruby/object:DateTime 2013-03-27 18:34:49.580874666 +00:00
+judge_dredd:
+  :name: the law
+  :added_by: wsong
+  :updated_at: !ruby/object:DateTime 2013-03-29 18:21:38.386441588 +00:00
+thundara:
+  :name: Nader (Loren's friend)
+  :added_by: wsong
+  :updated_at: !ruby/object:DateTime 2013-03-29 20:47:05.147218908 +00:00
