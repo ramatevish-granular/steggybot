@@ -8,3 +8,5 @@ source 'http://gems.github.com'
 gem 'cinch'
 gem 'levenshtein'
 gem 'nokogiri'
+
+#gem 'ruby-debug19', :require => 'ruby-debug'
