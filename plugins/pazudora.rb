@@ -142,6 +142,11 @@ class Pazudora
     identifier = args
     info = get_puzzlemon_info(URI.encode(identifier))
     
+    if info.css(".name").children.first.text == "Meteor Volcano Dragon" && !(identifier.start_with?("Meteor") || identifier == "211")
+      num = (identifier.hash % 603) + 1
+      info = get_puzzlemon_info(URI.encode(num.to_s))
+    end
+    
     desc = info.css("meta [name=description]").first.attributes["content"].text
     desc.gsub!(/&amp;/, "&")
     m.reply desc
