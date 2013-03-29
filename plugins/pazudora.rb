@@ -142,6 +142,8 @@ class Pazudora
     identifier = args
     info = get_puzzlemon_info(URI.encode(identifier))
     
+    #Bypass puzzledragonx's "default to meteor dragon if you can't find the puzzlemon" mechanism to
+    #get a pseudorandom puzzlemon (up to the max currently released puzzlemon) instead.
     if info.css(".name").children.first.text == "Meteor Volcano Dragon" && !(identifier.start_with?("Meteor") || identifier == "211")
       num = (identifier.hash % 603) + 1
       info = get_puzzlemon_info(URI.encode(num.to_s))
