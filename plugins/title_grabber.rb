@@ -9,7 +9,7 @@ class TitleGrabber
 
   def grab(url)
     page = Nokogiri::HTML(open(url))
-    return "This page doesn't appear to have a title" if page.css("title").empty?
+    return nil if page.css("title").empty?
     return page.css("title").first.text
   rescue OpenURI::HTTPError
     nil
@@ -18,7 +18,6 @@ class TitleGrabber
   def listen(m)
     urls = URI.extract(m.message, "http")
     urls.reject! {|url| url.include? "youtube.com"}
-    urls.reject! {|url| /\.gif|\.jpeg|\.jpg|\.png|imgur/.match(url) != nil }
     titles = urls.map { |url| grab(url) }.compact
     unless titles.empty?
       m.reply titles.join(", ")
