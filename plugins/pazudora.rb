@@ -65,25 +65,24 @@ Returns a list of everyone's friends codes."
     # add it to the list
     friend_codes = load_data || {}
     if friend_code =~ /[0-9]{9}/
-      friend_code = friend_code.reverse.gsub(%r{([0-9]{3}(?=([0-9])))},".").reverse
-      
-      if friend_codes[username.downcase] && (friend_codes[username.downcase][:added_by] == username.downcase)
-        if m.user.nick.downcase == username.downcase
-          friend_codes[username.downcase] = {:friend_code => friend_code, :added_by => m.user.nick.downcase, :updated_at => DateTime.now}
-        else
-          m.reply "#{m.user.nick}: Can't override a user's self-definition."
-          return
-        end
-      else
+      friend_code = friend_code.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+    end 
+    if friend_codes[username.downcase] && (friend_codes[username.downcase][:added_by] == username.downcase)
+      if m.user.nick.downcase == username.downcase
         friend_codes[username.downcase] = {:friend_code => friend_code, :added_by => m.user.nick.downcase, :updated_at => DateTime.now}
+      else
+        m.reply "#{m.user.nick}: Can't override a user's self-definition."
+        return
       end
-      # write it to the file
-      output = File.new(@pddata, 'w')
-      output.puts YAML.dump(friend_codes)
-      output.close
-      
-      m.reply "#{m.user.nick}: #{mangle(username)} successfully added as '#{friend_code}'."
+    else
+      friend_codes[username.downcase] = {:friend_code => friend_code, :added_by => m.user.nick.downcase, :updated_at => DateTime.now}
     end
+    # write it to the file
+    output = File.new(@pddata, 'w')
+    output.puts YAML.dump(friend_codes)
+    output.close
+      
+    m.reply "#{m.user.nick}: #{mangle(username)} successfully added as '#{friend_code}'."
   end
   
   def pazudora_remove(m, args)
