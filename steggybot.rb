@@ -10,19 +10,19 @@ bot = Cinch::Bot.new do
                          YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora]
     c.plugins.plugins << Help
     c.plugins.options[Quotes] = {
-      :quotes_file => "quotes.yml"
+      :quotes_file => "db/quotes.yml"
     }
     c.plugins.options[Pokedex] = {
-      :pokedex => "pokedex.json"
+      :pokedex => "db/pokedex.json"
     }
     c.plugins.options[WhoAreThesePeople] = {
-      :identities => "identities.yml"
+      :identities => "db/identities.yml"
     }
     c.plugins.options[PlusPlus] = {
-      :plusplus => "plusplus.yml"
+      :plusplus => "db/plusplus.yml"
     }
     c.plugins.options[Pazudora] = {
-      :pddata => "pddata.yml"
+      :pddata => "db/pddata.yml"
     }
   end
 end
