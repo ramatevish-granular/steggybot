@@ -1,3 +1,5 @@
+Requires: Ruby 2.0.0
+
 Install instructions:
 
 Simply run 
