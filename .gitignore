@@ -1,10 +1,8 @@
-# Ignore data files
-db
-*.yml
-*.json
-
 # Ignore vim swap files
 *.sw[a-p]
 
 # Ignore OSX files
 .DS_Store
+
+#Ignore linux backup files
+*~
