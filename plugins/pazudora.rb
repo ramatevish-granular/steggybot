@@ -34,7 +34,10 @@ Example !puzzlemon lookup horus, !puzzledex 603
 Returns a description of the puzzlemon. If none is found, returns a pseudorandom (hashed) one.",
     :list => "Usage: !puzzlemon list
 Example !puzzlemon list
-Returns a list of everyone's friends codes."
+Returns a list of everyone's friends codes.",
+    :level => "Usage: !(puzzlemon level NAME CURRENTEXP TARGETLEVEL
+Example !puzzlemon level Sapphire Carbuncle 0 10
+Returns the required amount of experience left to level your puzzlemon from its current experience total to the desired level."
   }
   
   def initialize(*args)
@@ -128,6 +131,9 @@ Returns a list of everyone's friends codes."
   def pazudora_group(m,args)
     pargs = args.split
     username = pargs[0]
+    if username == ""
+      username = m.user.nick
+    end
     if load_data[username.downcase]
       friend_code = load_data[username.downcase][:friend_code]
       group = (Integer(friend_code.split(",")[0][2]) % 5 + 65).chr
@@ -177,6 +183,18 @@ Returns a list of everyone's friends codes."
     desc = info.css("meta [name=description]").first.attributes["content"].text
     desc.gsub!(/&amp;/, "&")
     m.reply desc
+  end
+
+  def pazudora_level(m, args)
+    pargs = args.partition(/[0-9]+/)
+    identifier = pargs[0].strip
+    curexp = pargs[1]
+    targetlvl = pargs[2].strip
+    info = get_puzzlemon_info(URI.encode(identifier))
+    curve = Integer(info.xpath('//*[@id="tablestat"][4]/tr[3]/td[2]/a/text()').first().content())
+    targetexp = curve / 100000 * ((pargs[2].to_f - 1) * 50 / 49) ** 2.5 
+    neededexp = targetexp - curexp.to_f
+    m.reply "To level #{identifier} to level #{targetlvl}, you need #{neededexp.round} more experience."
   end
   
   protected
