@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + "/../ya_bish.rb"
 describe YaBish do
 
   before(:all) do
-    @ya_bish = YaBish.new(bot)
+    @ya_bish = YaBish.new(new_test_bot)
   end
 
   it "should reply if it hears the name 'steggybot'" do

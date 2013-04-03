@@ -1,3 +1,6 @@
+#To run the test suite, run "bundle exec rspec plugins/*/spec/"
+
+
 def mock_message(opts={})
   m = mock()
   
@@ -5,7 +8,9 @@ def mock_message(opts={})
   return m
 end
 
-def bot(opts={})
+#Configures a bot for testing on, set to not try to reconnect after fail. 
+#Adds options if any passed in. Use with SteggyMocker to mock dependencies.
+def new_test_bot(opts={})
   cinch_bot = Cinch::Bot.new do
     configure do |c|
       c.nick = "steggybot_testbot"
@@ -17,4 +22,11 @@ def bot(opts={})
   end
 
   cinch_bot
+end
+
+
+module SteggyMocker
+  def SteggyMocker.mock_irc
+    Cinch::IRC.any_instance.stub(:connect).and_return(false)
+  end
 end

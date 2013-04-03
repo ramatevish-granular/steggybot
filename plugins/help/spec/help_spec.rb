@@ -27,8 +27,8 @@ describe Help do
   end
   
   before(:each) do
-    Cinch::IRC.any_instance.stub(:connect).and_return(false)
-    configured_bot = bot(:plugins => [HelpfulClass, BoringClass, HashyClass, Help])
+    SteggyMocker.mock_irc
+    configured_bot = new_test_bot(:plugins => [HelpfulClass, BoringClass, HashyClass, Help])
     
     #Must be started because that's where "register_plugins" is located and we need the
     #plugin that was initialized with all the other ones
