@@ -145,15 +145,20 @@ Returns a list of everyone's friends codes."
     friend_code = load_data[username.downcase][:friend_code] rescue nil
     group_num = friend_code ? group_number_from_friend_code(friend_code) : nil
     
-    @daily_page ||= Nokogiri::HTML(open(daily_url))
-    @event_data ||= @daily_page.css(".event3")
-    @event_rewards ||= @daily_page.css(".limiteddragon")
+    unless @daily_timestamp == Time.now.strftime("%m-%d-%y")
+      @daily_page = nil
+      @daily_timestamp = Time.now.strftime("%m-%d-%y")
+    end
     
-    @rewards = parse_daily_dungeon_rewards(@event_rewards)
-    m.reply "Dungeons today are: #{@rewards.join(', ')}"
+    @daily_page ||= Nokogiri::HTML(open(daily_url))
+    event_data = @daily_page.css(".event3")
+    event_rewards = @daily_page.css(".limiteddragon")
+    
+    rewards = parse_daily_dungeon_rewards(event_rewards)
+    m.reply "Dungeons today are: #{rewards.join(', ')}"
     
     (0..4).each do |i|
-      m.reply "Group #{(i + 65).chr}: #{@event_data[i].text}, #{@event_data[i + 5].text}, #{@event_data[i + 10].text}"
+      m.reply "Group #{(i + 65).chr}: #{event_data[i].text}, #{event_data[i + 5].text}, #{event_data[i + 10].text}"
     end
     
     if group_num
