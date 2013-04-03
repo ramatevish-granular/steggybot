@@ -37,7 +37,7 @@ As a note, you have to put your help in help_method, to avoid colliding with the
       # If the class doesn't have a help method, grab the help_hash and do the normal thing for it
       elsif plugin_class.help_hash != nil
         help_hash = plugin_class.help_hash
-        if help_hash.keys.include? extra.to_sym
+        if extra and help_hash.keys.include? extra.to_sym
           m.reply(help_hash[extra.to_sym])
         else
           m.reply("This is the #{plugin_class} module. For more information on how to use, try !help #{plugin_class} {#{help_hash.keys.join","}}")
