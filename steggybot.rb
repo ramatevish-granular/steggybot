@@ -5,10 +5,10 @@ Dir.glob("plugins/*/*.rb").each {|x| require_relative x}
 bot = Cinch::Bot.new do
   configure do |c|
     c.server = "irc.freenode.net"
-    c.nick = "spacecakebot"
-    c.channels = ["#spacecake"]
+    c.nick = "steggybot"
+    c.channels = ["#csua", "#csuatest"]
     c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, 
-                         YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora, Test]
+                         YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors]
     c.plugins.plugins << Help
     c.plugins.options[Quotes] = {
       :quotes_file => "db/quotes.yml"
