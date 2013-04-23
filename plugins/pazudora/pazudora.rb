@@ -34,7 +34,10 @@ Example !puzzlemon lookup horus, !puzzledex 603
 Returns a description of the puzzlemon. If none is found, returns a pseudorandom (hashed) one.",
     :list => "Usage: !puzzlemon list
 Example !puzzlemon list
-Returns a list of everyone's friends codes."
+Returns a list of everyone's friends codes.",
+    :level => "Usage: !(puzzlemon level NAME CURRENTEXP TARGETLEVEL
+Example !puzzlemon level Sapphire Carbuncle 0 10
+Returns the required amount of experience left to level your puzzlemon from its current experience total to the desired level."
   }
   
   def initialize(*args)
@@ -128,6 +131,9 @@ Returns a list of everyone's friends codes."
   def pazudora_group(m,args)
     pargs = args.split
     username = pargs[0]
+    if username.nil?
+      username = m.user.nick
+    end
     if load_data[username.downcase]
       friend_code = load_data[username.downcase][:friend_code]
       group = (Integer(friend_code.split(",")[0][2]) % 5 + 65).chr
@@ -183,6 +189,21 @@ Returns a list of everyone's friends codes."
     desc.gsub!(/&amp;/, "&")
     m.reply desc
   end
+
+  def pazudora_level(m, args)
+    if args == ""
+      return
+    end
+    pargs = args.partition(/[0-9]+/) # Split args around central number.
+    identifier = pargs[0].strip
+    curexp = pargs[1]
+    targetlvl = pargs[2].strip
+    info = get_puzzlemon_info(URI.encode(identifier))
+    curve = get_expcurve_from_info(info)
+    targetexp = curve / 100000 * ((pargs[2].to_f - 1) * 50 / 49) ** 2.5 
+    neededexp = targetexp - curexp.to_f
+    m.reply "To level #{info.css(".name").children.first.text} to level #{targetlvl}, you need #{neededexp.round} more experience."
+  end
   
   protected
   
@@ -218,5 +239,10 @@ Returns a list of everyone's friends codes."
     search_url = PUZZLEMON_BASE_URL + "monster.asp?n=#{name_or_number}"
     puzzlemon_info = Nokogiri::HTML(open(search_url))
   end
+  
+  def get_expcurve_from_info(info)
+    return Integer(info.xpath('//*[@id="tablestat"][4]/tr[3]/td[2]/a/text()').first().content())
+  end
+
 end
 

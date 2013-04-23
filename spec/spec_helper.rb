@@ -11,7 +11,7 @@ end
 
 #Configures a bot for testing on, set to not try to reconnect after fail. 
 #Adds options if any passed in. Use with SteggyMocker to mock dependencies.
-def new_test_bot(opts={})
+def new_test_bot(opts={}, &b)
   cinch_bot = Cinch::Bot.new do
     configure do |c|
       c.nick = "steggybot_testbot"
@@ -19,6 +19,7 @@ def new_test_bot(opts={})
       c.channels = []
       c.plugins.plugins = opts[:plugins] if opts[:plugins]
       c.reconnect = false
+      b and b.call(c)
     end
   end
 
