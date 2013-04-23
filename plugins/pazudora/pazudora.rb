@@ -159,7 +159,7 @@ Returns the required amount of experience left to level your puzzlemon from its 
     event_data = @daily_page.css(".event3")
     event_rewards = @daily_page.css(".limiteddragon")
     
-    rewards = parse_daily_dungeon_rewards(event_rewards)
+    rewards = parse_daily_dungeon_rewards(event_rewards, group_num || 0)
     m.reply "Dungeons today are: #{rewards.join(', ')}"
     
     (0..4).each do |i|
@@ -222,11 +222,14 @@ Returns the required amount of experience left to level your puzzlemon from its 
     return Integer(friend_code.split(",")[0][2]) % 5
   end
   
-  def parse_daily_dungeon_rewards(rewards)
+  def parse_daily_dungeon_rewards(rewards, group_num)
     puzzlemon_numbers = [
-    rewards[0].children.first.attributes["src"].value.match(/thumbnail\/(\d+).png/)[1],
-    rewards[5].children.first.attributes["src"].value.match(/thumbnail\/(\d+).png/)[1],
-    rewards[10].children.first.attributes["src"].value.match(/thumbnail\/(\d+).png/)[1]]
+    rewards[0 + group_num].children.first.attributes["src"].
+      value.match(/thumbnail\/(\d+).png/)[1],
+    rewards[5 + group_num].children.first.attributes["src"].
+      value.match(/thumbnail\/(\d+).png/)[1],
+    rewards[10 + group_num].children.first.attributes["src"].
+      value.match(/thumbnail\/(\d+).png/)[1]]
     
     puzzlemon_numbers.map{|x| 
       get_puzzlemon_info(x).css(".name").children.first.text rescue "Unrecognized Name" }
