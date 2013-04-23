@@ -1,10 +1,11 @@
-# Ignore data files
-db
+#Ignore the yml files used as local storage
 *.yml
-*.json
 
 # Ignore vim swap files
 *.sw[a-p]
 
 # Ignore OSX files
 .DS_Store
+
+#Ignore linux backup files
+*~
