@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'cinch'
 require 'nokogiri'
+require 'pdf-reader'
 
 class TitleGrabber
   include Cinch::Plugin
@@ -8,11 +9,28 @@ class TitleGrabber
   listen_to :channel
 
   def grab(url)
-    page = Nokogiri::HTML(open(url))
-    return nil if page.css("title").empty?
-    return page.css("title").first.text
+    doc = open(url)
+
+    case doc.content_type
+    when "application/pdf"
+      grab_pdf_title(doc)
+    else
+      grab_html_title(doc)
+    end
+
   rescue OpenURI::HTTPError
     nil
+  end
+
+  def grab_html_title(doc)
+    page = Nokogiri::HTML(doc)
+    return nil if page.css("title").empty?
+    return page.css("title").first.text
+  end
+
+  def grab_pdf_title(doc)
+    pdf = PDF::Reader.new(doc)
+    return pdf.info ? pdf.info[:Title] : nil
   end
 
   def listen(m)
