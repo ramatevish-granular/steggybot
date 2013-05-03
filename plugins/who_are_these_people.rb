@@ -57,7 +57,7 @@ class WhoAreThesePeople
   end
 
   def listen(m)
-    match = /who is (\w+)/i.match(m.message)
+    match = /who *is (\w+)/i.match(m.message)
     if match
       user = match[1]
       if get_identities[user.downcase]
