@@ -20,12 +20,9 @@ Returns the a hash of the people that that NAME has plusplus'ed, and the number 
   # form:
   # czhang's karma: {"czhan.g"=>1}, {"skimbre.l"=>1}
   def lookup(m, name)
-    values = plusplus_file
-    # Don't want to always nameping people, so we mangle the name a little
-    values = values.keys.map { |key| {mangle_string(key) => values[key][name]} if values[key][name] }.compact
-    result = values.empty? ? ["no results"] : values
-    result = "#{name}'s karma: " + result.join(", ")
-    m.reply(result)
+    karma = plusplus_file.keys.map { |key| [key, values[key][name]] if values[key][name] }.compact
+
+    m.reply("#{name}'s karma: #{format_scores(karma)}")
   end
 
   # This looks up someone's karma and replies with the total sum in
@@ -46,11 +43,15 @@ Returns the a hash of the people that that NAME has plusplus'ed, and the number 
   # replies in the form:
   # {"skimbre.l"=>-1, "czhan.g" => 1}
   def lookup_feelings(m, name)
-    values = plusplus_file
-    base_hash = (values.keys.include? name) ? values[name] : "no results"
-    result = base_hash.keys.map {|key| [mangle_string(key), base_hash[key]] }
-    result = Hash[result]
-    m.reply(result)
+    m.reply(format_scores(plusplus_file[name]))
+  end
+
+  def format_scores(scores)
+    return "no results" unless scores and scores.any?
+
+    pairs = scores.sort_by { |(item, score)| score }.reverse
+
+    pairs.map { |(item, score)| "#{mangle_string(item)} (#{score})" }.join(" / ")
   end
 
   # This mangles a name by inserting a '.'
