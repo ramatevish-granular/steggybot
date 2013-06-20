@@ -47,7 +47,7 @@ Returns the a hash of the people that that NAME has plusplus'ed, and the number 
   end
 
   def format_scores(scores)
-    return "no results" unless scores and scores.any?
+    return "no results" unless scores && scores.any?
 
     pairs = scores.sort_by { |(item, score)| score }.reverse
 
