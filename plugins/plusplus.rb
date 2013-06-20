@@ -57,7 +57,7 @@ Returns the a hash of the people that that NAME has plusplus'ed, and the number 
   # This mangles a name by inserting a '.'
   # It is used so this bot does not ping people multiple times
   def mangle_string(string)
-    string.chop + "." + string[-1]
+    "#{string[0]}.#{string[1..-1]}"
   end
 
   def initialize(*args)
