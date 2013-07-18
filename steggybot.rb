@@ -8,7 +8,7 @@ bot = Cinch::Bot.new do
     c.nick = "steggybot"
     c.channels = ["#csua", "#csuatest"]
     c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, 
-                         YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors]
+                         YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown]
     c.plugins.plugins << Help
     c.plugins.options[Quotes] = {
       :quotes_file => "db/quotes.yml"
