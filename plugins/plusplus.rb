@@ -20,9 +20,9 @@ Returns the a hash of the people that that NAME has plusplus'ed, and the number 
   # form:
   # czhang's karma: {"czhan.g"=>1}, {"skimbre.l"=>1}
   def lookup(m, name)
-    karma = plusplus_file.keys.map { |key| [key, values[key][name]] if values[key][name] }.compact
-
-    m.reply("#{name}'s karma: #{format_scores(karma)}")
+    values = plusplus_file
+    values = values.keys.map { |key| [key, values[key][name]] if values[key][name] }.compact
+    m.reply("#{name}'s karma: #{format_scores(values)}")
   end
 
   # This looks up someone's karma and replies with the total sum in
