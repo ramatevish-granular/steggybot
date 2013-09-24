@@ -7,7 +7,7 @@ class Array
 end
 
 class Markov
-  class Bucket < Hash
+  class Histogram < Hash
     def initialize(*)
       super
       @total = values.sum
@@ -103,7 +103,7 @@ class Markov
   end
 
   def add_link!(pattern, word)
-    (links[pattern.map(&:downcase)] ||= Bucket.new) << word
+    (links[pattern.map(&:downcase)] ||= Histogram.new) << word
   end
 
   def add_init!(pattern)
