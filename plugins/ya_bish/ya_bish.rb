@@ -18,7 +18,7 @@ class YaBish
 
   def listen(m)
     # reply only if steggybot's name or `ya bish` is mentioned
-    if m.message =~ /\b(ya\s+bish)\b/
+    if m.message =~ /\b(#{m.bot.nick}|ya\s+bish)/
       m.reply @markov.generate_sentence($`)
     else
       # learn from every message and save every once in a while
