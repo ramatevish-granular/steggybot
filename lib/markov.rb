@@ -134,7 +134,6 @@ class Markov
     out = random_init(seed)
 
     loop do
-      p :loop => out
       break if END_PUNC === out.last
       break if out.size >= MAX_SENTENCE_WORDS
       next_word = sample(out[-depth..-1])
@@ -142,8 +141,6 @@ class Markov
       break if next_word.nil?
       out << next_word
     end
-
-    p :tokens => out
 
     detokenize(out)
   end
