@@ -13,7 +13,7 @@ class YaBish
     super
     @mutex = Mutex.new
     @db = config[:db]
-    @markov ||= Markov.from_file(@db)
+    @markov = Markov.from_file(@db)
   end
 
   def listen(m)
