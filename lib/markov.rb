@@ -103,7 +103,7 @@ class Markov
   end
 
   def add_link!(pattern, word)
-    (links[pattern] ||= Bucket.new) << word
+    (links[pattern.map(&:downcase)] ||= Bucket.new) << word
   end
 
   def add_init!(pattern)
@@ -121,6 +121,7 @@ class Markov
   end
 
   def sample(pattern)
+    pattern = pattern.map(&:downcase)
     return nil unless links.include? pattern
 
     links[pattern].sample
