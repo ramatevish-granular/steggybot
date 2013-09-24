@@ -10,6 +10,9 @@ bot = Cinch::Bot.new do
     c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, 
                          YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown]
     c.plugins.plugins << Help
+    c.plugins.options[YaBish] = {
+      :db => 'db/ya_bish'
+    }
     c.plugins.options[Quotes] = {
       :quotes_file => "db/quotes.yml"
     }
