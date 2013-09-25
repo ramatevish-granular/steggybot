@@ -116,8 +116,14 @@ class Markov
 
   def random_init(seed=[])
     seed = seed.dup
-    seed.concat inits.sample while seed.size < depth
-    seed
+    shifted = []
+
+    loop do
+      return inits.sample if seed.empty?
+      link = links.keys.select { |p| p.first(seed.size) == seed }.sample
+      return shifted.concat(link)[0..depth] if link
+      shifted << seed.shift
+    end
   end
 
   def sample(pattern)
