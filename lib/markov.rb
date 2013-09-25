@@ -65,9 +65,9 @@ class Markov
   end
 
   END_PUNC = /[?!.]/
-  PUNC = /[:,="+-]/
+  PUNC = /[:,=+-]/
   URL = %r(\w+://\S*)
-  WORD = /[0-9a-z'-]+/i
+  WORD = /[0-9a-z-]+(?:'\w+)?/i
 
   def tokenize(string, &b)
     return enum_for :tokenize, string unless b
