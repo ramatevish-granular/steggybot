@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*- #
+
 require 'strscan'
 
 class Array
@@ -34,13 +36,13 @@ class Markov
   end
 
   def self.from_file(fname)
-    lines = File.readlines(fname).each(&:chomp!)
+    lines = File.readlines(fname, :encoding => 'UTF-8').each(&:chomp!)
     depth = Integer(lines.shift)
     train!(lines, :depth => depth)
   end
 
   def save(fname)
-    File.open(fname, 'w') do |f|
+    File.open(fname, 'w:UTF-8') do |f|
       f.puts depth
       sentences.each { |s| f.puts s }
     end
@@ -64,6 +66,7 @@ class Markov
     new({}, [], [], depth)
   end
 
+  SMILEY = /:\S+|D:/
   END_PUNC = /[?!.]/
   PUNC = /[:,=+-]/
   URL = %r(\w+://\S*)
@@ -71,7 +74,7 @@ class Markov
 
   def tokenize(string, &b)
     return enum_for :tokenize, string unless b
-    string.scan %r(#{END_PUNC}|#{PUNC}|#{URL}|#{WORD})o, &b
+    string.scan %r(#{SMILEY}|#{END_PUNC}|#{PUNC}|#{URL}|#{WORD})o, &b
     yield nil
   end
 
@@ -95,7 +98,7 @@ class Markov
   end
 
   def load_file(fname)
-    File.readlines(fname).each(&method(:load_string)); nil
+    File.readlines(fname, :encoding => 'UTF-8').each(&method(:load_string)); self
   end
 
   def load_lines(str)
@@ -139,11 +142,13 @@ class Markov
     seed.pop
     out = random_init(seed)
 
+    raise "seed too short" if out.size < depth
+
     loop do
       break if END_PUNC === out.last
       break if out.size >= MAX_SENTENCE_WORDS
+      break unless out.last
       next_word = sample(out[-depth..-1])
-      break unless next_word
       out << next_word
     end
 
