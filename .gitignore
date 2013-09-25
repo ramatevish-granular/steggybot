@@ -10,5 +10,7 @@
 #Ignore linux backup files
 *~
 
+localbot.rb
+
 # ignore the massive ya_bish dataset that contains all our logs
 /db/ya_bish
