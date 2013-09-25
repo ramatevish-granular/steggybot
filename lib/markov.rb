@@ -144,7 +144,6 @@ class Markov
       break if out.size >= MAX_SENTENCE_WORDS
       next_word = sample(out[-depth..-1])
       break unless next_word
-      break if next_word.nil?
       out << next_word
     end
 
