@@ -84,7 +84,7 @@ class Markov
       add_link!(pattern, word)
     end
 
-    add_init! tokens.first(depth)
+    add_init! tokens.first(depth) unless tokens.to_a.length < depth
 
     self
   end
