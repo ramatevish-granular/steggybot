@@ -11,7 +11,9 @@ bot = Cinch::Bot.new do
                          YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown]
     c.plugins.plugins << Help
     c.plugins.options[YaBish] = {
-      :db => 'db/ya_bish'
+      :db => 'db/ya_bish',
+      :rate_limit => [10, 600], # 10 replies every 600 seconds (10 min.)
+      :random_ratio => (1.0/80), # reply randomly with a 1/80 probability
     }
     c.plugins.options[Quotes] = {
       :quotes_file => "db/quotes.yml"
