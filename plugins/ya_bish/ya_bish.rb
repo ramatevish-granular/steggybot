@@ -67,8 +67,8 @@ private
     @limit_mutex.synchronize {
       cache = @limits[channel] ||= {}
 
-      if now != cache[:last_minute]
-        cache[:last_minute] = now
+      if now != cache[:last_interval]
+        cache[:last_interval] = now
         cache[:limit_count] = 1
       else
         cache[:limit_count] += 1
