@@ -138,11 +138,7 @@ class Markov
     shifted = []
 
     loop do
-      if seed.empty?
-        random = inits.sample
-        p :random_seed => random
-        return random
-      end
+      return inits.sample if seed.empty?
 
       link = links.keys.select do |p|
         seed.each_with_index.all? do |el, i|
@@ -150,14 +146,7 @@ class Markov
         end
       end.sample
 
-      if link
-        final = shifted.concat(link)
-        p :found_link => link,
-          :shifted => shifted,
-          :final => final
-
-        return final
-      end
+      return shifted.concat(link) if link
 
       shifted << seed.shift
     end
