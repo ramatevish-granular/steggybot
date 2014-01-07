@@ -37,8 +37,6 @@ class FeatureRequestPlugin
     File.open(@requests, "a+") do |f|
       f.write(YAML.dump({})) if f.read == ""
     end
-    require 'debugger'
-    debugger
     File.open(@requests, "r") do |file|
       output = YAML.load(file.read)
       result = block.call(output)
