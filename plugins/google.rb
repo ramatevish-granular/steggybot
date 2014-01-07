@@ -17,7 +17,7 @@ Returns the first google hit for THING"
   def image(m, query)
     url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=#{CGI.escape(query)}"
     res = JSON.parse(Nokogiri::HTML(open(url)))
-    m.reply(res["responseData"]["results"].first["unescapedUrl"])
+    m.reply(res["responseData"]["results"].slice(0,9).sample["unescapedUrl"])
   end
   def search(query)
     url = "http://www.google.com/search?q=#{CGI.escape(query)}"
