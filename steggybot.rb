@@ -6,9 +6,10 @@ bot = Cinch::Bot.new do
   configure do |c|
     c.server = "irc.freenode.net"
     c.nick = "steggybot"
-    c.channels = ["#csua", "#csuatest", "#csuapad"]
+    c.channels = ["#csua", "#csuatest"]
+#    c.channels = ["#csuatest"]
     c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, 
-                         YaBish, Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown]
+                         Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown, FrenchRevCal, FeatureRequestPlugin]
     c.plugins.plugins << Help
     c.plugins.options[YaBish] = {
       :db => 'db/ya_bish',
@@ -29,6 +30,9 @@ bot = Cinch::Bot.new do
     }
     c.plugins.options[Pazudora] = {
       :pddata => "db/pddata.yml"
+    }
+    c.plugins.options[FeatureRequestPlugin] = {
+      :requests => "db/requests.yml"
     }
   end
 end
