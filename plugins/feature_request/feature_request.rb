@@ -24,7 +24,7 @@ class FeatureRequestPlugin
   include Cinch::Plugin
   match /request (.+)/i, method: :add_request
   match /list/i, method:  :list_requests
-  match /vote ([\+|\-])1? (.+)/i, method: :vote_request
+  match /vote ([+-])1? (.+)/i, method: :vote_request
 
   def initialize(*args)
     super
