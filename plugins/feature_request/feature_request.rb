@@ -24,8 +24,8 @@ class FeatureRequestPlugin
   include Cinch::Plugin
   match /request (.+)/i, method: :add_request
   match /list/i, method:  :list_requests
-  match /vote ([+-])1? (.+)/i, method: :vote_request
-
+  match /vote (.+)/i, method: :vote_request
+  
   def initialize(*args)
     super
     @requests = config[:requests]
@@ -43,8 +43,12 @@ class FeatureRequestPlugin
     end
   end
 
-  def vote_request(m, plus_or_minus, request)
-    is_positive = (plus_or_minus == "+")
+  def vote_request(m, request)
+    
+    plus_or_minus = request[/([+-])1?/]
+    return m.reply("This syntax is incorrect. A correctly formatted vote looks like:
+!vote +1 foo")
+    is_positive = (plus_or_minus.first == "+")
     delta = is_positive ? 1 : -1
     nick = m.user.nick
     response = "Steggybot had an error :("
