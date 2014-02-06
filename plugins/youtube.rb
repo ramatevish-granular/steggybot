@@ -1,6 +1,7 @@
 require 'cinch'
 require 'nokogiri'
 require 'open-uri'
+require 'youtube_it'
 
 class Youtube
   include Cinch::Plugin
@@ -18,11 +19,10 @@ class Youtube
 
   def get_page_info(url)
     page = Nokogiri::HTML(open(url))
-    return_string = "Title: " + page.title + ",
-Top Comments: \t"
-    page.css("div.content-container > div.content > div.comment-text")[0..2].each_with_index{|comment, index| return_string += index.to_s + " " + comment.text.strip+ "\n" }
-
-    return_string += " With count: " + page.css("div[@id=watch-actions] span.watch-view-count > strong").text
+    video_id = url.match(/\?v=(.*)/).captures.first
+    client = YouTubeIt::Client.new
+    comments = client.comments(video_id).slice(0,3).map {|x| "#{x.author.name} - #{x.content}"}
+    return_string = "Title: " + page.title + " With count: " + client.video_by(video_id).view_count.to_s +
+      " - Top Comments: \t" + comments.join("\t")
   end
 end
-

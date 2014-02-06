@@ -4,7 +4,7 @@ require 'yaml'
 class Quotes
   include Cinch::Plugin
   @help_hash = {
-      :add_quote => "Usage: !addquote Quote
+      :addquote => "Usage: !addquote Quote
 Example: !addquote \"That steggybot sure is something\"",
       :quote => "Usage !quote [search]
 Example: !quote whunt",
@@ -58,7 +58,7 @@ Example: !quote whunt",
       if quotes.empty?
         m.reply "#{m.user.nick}: No quotes found."
       else
-        quote = quotes.first
+        quote = quotes.sample
         m.reply "#{m.user.nick}: ##{quote["id"]} - #{quote["quote"]}"
         m.reply "The search term also matched on quote IDs: #{quotes.map{|q| q["id"]}.join(", ")}" if quotes.size > 1
       end
