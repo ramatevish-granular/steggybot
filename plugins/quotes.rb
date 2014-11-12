@@ -39,19 +39,21 @@ Example: !quote whunt",
 
     # send reply that quote was added
     m.reply "#{m.user.nick}: Quote successfully added as ##{new_quote_index + 1}."
+    m.reply "And now for your daily fortune:"
+    m.reply quote_text(active_quotes.sample)
   end
 
   def quote(m, search = nil)
-    quotes = get_quotes.delete_if{ |q| q["deleted"] == true }
+    quotes = active_quotes
     if search.nil? # we are pulling random
       quote = quotes.sample
-      m.reply "#{m.user.nick}: ##{quote["id"]} - #{quote["quote"]}"
+      m.reply "#{m.user.nick}: #{quote_text(quote)}"
     elsif search.to_i != 0 # then we are searching by id
       quote = quotes.find{|q| q["id"] == search.to_i }
       if quote.nil?
         m.reply "#{m.user.nick}: No quotes found."
       else
-        m.reply "#{m.user.nick}: ##{quote["id"]} - #{quote["quote"]}"
+        m.reply "#{m.user.nick}: #{quote_text(quote)}"
       end
     else
       quotes.keep_if{ |q| q["quote"].downcase.include?(search.downcase) }
@@ -59,7 +61,7 @@ Example: !quote whunt",
         m.reply "#{m.user.nick}: No quotes found."
       else
         quote = quotes.sample
-        m.reply "#{m.user.nick}: ##{quote["id"]} - #{quote["quote"]}"
+        m.reply "#{m.user.nick}: #{quote_text(quote)}"
         m.reply "The search term also matched on quote IDs: #{quotes.map{|q| q["id"]}.join(", ")}" if quotes.size > 1
       end
     end
@@ -77,6 +79,14 @@ Example: !quote whunt",
     output.close
 
     quotes
+  end
+  
+  def active_quotes
+   get_quotes.delete_if{ |q| q["deleted"] == true }
+  end
+  
+  def quote_text(quote)
+     "##{quote["id"]} (#{quote["created_at"].strftime("%m/%d/%Y %I:%M %p")}) - #{quote["quote"]}"
   end
 
 end

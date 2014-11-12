@@ -1,20 +1,40 @@
 GEM
   remote: https://rubygems.org/
-  remote: http://gems.github.com/
   specs:
     Ascii85 (1.0.2)
+    addressable (2.3.6)
     afm (0.2.0)
+    builder (3.2.2)
     cinch (2.0.4)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     diff-lcs (1.2.2)
+    excon (0.41.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    frenchrevcal-ruby (1.0.0)
     hashery (2.1.0)
+    json (1.8.1)
+    jwt (1.0.0)
     levenshtein (0.2.2)
+    multi_json (1.10.1)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     nokogiri (1.5.9)
+    oauth (0.4.7)
+    oauth2 (0.9.4)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
     pdf-reader (1.3.3)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.0)
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
+    rack (1.5.2)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -24,14 +44,31 @@ GEM
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.0)
     ruby-rc4 (0.1.5)
+    safe_yaml (1.0.4)
+    simple_oauth (0.3.0)
     ttfunk (1.0.3)
+    webmock (1.20.4)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+    youtube_it (2.3.2)
+      builder
+      excon
+      faraday (~> 0.8)
+      json (~> 1.8.0)
+      nokogiri (~> 1.5.2)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.6)
+      simple_oauth (>= 0.1.5)
+      webmock
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   cinch
+  frenchrevcal-ruby
   levenshtein
   nokogiri
   pdf-reader
   rspec
+  youtube_it
