@@ -41,7 +41,7 @@ class Ping
 
     # no need for empty check since we remove the group when it becomes empty
     members_of = all_groups
-    m.reply(members_of[group].map { |name| deform(name) }.join(', '))
+    m.reply("#{group} has " + members_of[group].map { |name| deform(name) }.join(', '))
   end
 
   def ping(m, group)
