@@ -21,8 +21,8 @@ class Youtube
     page = Nokogiri::HTML(open(url))
     video_id = url.match(/\?v=(.*)/).captures.first
     client = YouTubeIt::Client.new
-    comments = client.comments(video_id).slice(0,3).map {|x| "#{x.author.name} - #{x.content}"}
-    return_string = "Title: " + page.title + " With count: " + client.video_by(video_id).view_count.to_s +
-      " - Top Comments: \t" + comments.join("\t")
+    # comments = client.comments(video_id).slice(0,3).map {|x| "#{x.author.name} - #{x.content}"}
+    return_string = "Title: " + page.title + " With count: " + client.video_by(video_id).view_count.to_s 
+    #      " - Top Comments: \t" + comments.join("\t")
   end
 end

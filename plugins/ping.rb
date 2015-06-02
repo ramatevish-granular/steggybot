@@ -12,7 +12,6 @@ class Ping
     :removePing => "Usage: !removeping group name"
   }
 
-  listen_to :channel
   match /allgroups/i,  method: :list_all_groups
   match /members (.*)/i,  method: :list_members
   match /ping (.*)/i,  method: :ping

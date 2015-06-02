@@ -8,7 +8,7 @@ bot = Cinch::Bot.new do
     c.nick = "steggybot"
     c.channels = ["#csua", "#csuatest"]
     c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, Ping,
-                         Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown, FrenchRevCal, FeatureRequestPlugin]
+                         Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown, FrenchRevCal, FeatureRequest]
     c.plugins.plugins << Help
     c.plugins.options[YaBish] = {
       :db => 'db/ya_bish',
@@ -30,7 +30,7 @@ bot = Cinch::Bot.new do
     c.plugins.options[Pazudora] = {
       :pddata => "db/pddata.yml"
     }
-    c.plugins.options[FeatureRequestPlugin] = {
+    c.plugins.options[FeatureRequest] = {
       :requests => "db/requests.yml"
     }
     c.plugins.options[Ping] = {

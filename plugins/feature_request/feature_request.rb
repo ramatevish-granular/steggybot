@@ -12,6 +12,7 @@ end
 class Request
   attr_accessor :name, :votes
   def get_total
+    return 0 if @votes.empty?
     @votes.map(&:value).reduce(&:+)
   end
   def initialize(name)
@@ -20,9 +21,10 @@ class Request
   end
 end
 
-class FeatureRequestPlugin
+class FeatureRequest
   include Cinch::Plugin
-  match /request (.+)/i, method: :add_request
+  
+  match /(add)? request (.+)/i, method: :add_request
   match /list/i, method:  :list_requests
   match /vote (.+)/i, method: :vote_request
   
@@ -44,17 +46,21 @@ class FeatureRequestPlugin
   end
 
   def vote_request(m, request)
-    
-    plus_or_minus = request[/([+-])1?/]
+    vote_regex = /([+-])1?/
+    plus_or_minus = request[vote_regex]
     return m.reply("This syntax is incorrect. A correctly formatted vote looks like:
-!vote +1 foo")
-    is_positive = (plus_or_minus.first == "+")
+!vote +1 foo") if plus_or_minus.nil?
+    is_positive = (plus_or_minus.slice(0,1) == "+")
     delta = is_positive ? 1 : -1
     nick = m.user.nick
     response = "Steggybot had an error :("
     open_requests do |requests|
+      # Oh god this is so ugly. Production fix pending a better way
+      request = request.split(vote_regex).last.strip
       # TODO: do levenshtein here
       this_request = requests[request] 
+      return m.reply "No such request #{request}" if this_request.nil?
+
       if this_request.votes.map(&:name).include? nick
         response = "#{nick}: Can't vote for something you already voted for!"
       else
@@ -68,8 +74,10 @@ class FeatureRequestPlugin
   end
 
   def list_requests(m)
+    requests = {}
     response = []
     open_requests do |requests|
+      requests = requests.sort {|(name, request), (name2, request2)| request.get_total <=> request2.get_total}.reverse.slice(0, 5)
       requests.each_with_index do |(name, request), index|
         response << "#{index}: #{name} - Total votes :#{request.get_total}"
       end
