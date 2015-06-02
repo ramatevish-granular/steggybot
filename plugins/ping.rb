@@ -9,7 +9,7 @@ class Ping
     :members => "Usage: !members group",
     :ping => 'Usage: !ping group',
     :addping => "Usage: !addping group name",
-    :removePing => "Usage: !removeping group name"
+    :removeping => "Usage: !removeping group name"
   }
 
   match /allgroups/i,  method: :list_all_groups
