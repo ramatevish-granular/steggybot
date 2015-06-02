@@ -5,18 +5,18 @@ class Ping
   include Cinch::Plugin
 
   @help_hash = {
-    :groups => "Usage: !groups",
-    :members => "Usage: !members group",
-    :ping => 'Usage: !ping group',
-    :addping => "Usage: !addping group name",
-    :removeping => "Usage: !removeping group name"
+    :ping => 'To ping all members of a specific group, use: !ping group',
+    :listall => "To list all the groups in existence, use: !ping listall",
+    :list => "To list all the members of a group without pinging them, use: !ping list group",
+    :add => "To add a name to a group, use: !ping add name to group",
+    :remove => "To remove a name from a group, use: !ping remove name from group"
   }
 
-  match /allgroups/i,  method: :list_all_groups
-  match /members (.*)/i,  method: :list_members
-  match /ping (.*)/i,  method: :ping
-  match /addping (.*) (.*)/i,  method: :add
-  match /removeping (.*) (.*)/i,  method: :remove
+  match /ping listall/i,  method: :list_all_groups
+  match /ping list ([\w-]+)/i,  method: :list_members
+  match /ping add ([\w-]+) to ([\w-]+)/i,  method: :add
+  match /ping remove ([\w-]+) from ([\w-]+)/i,  method: :remove
+  match /ping ([\w-]+)/i,  method: :ping
 
   def initialize(*args)
     super
@@ -40,7 +40,7 @@ class Ping
 
     # no need for empty check since we remove the group when it becomes empty
     members_of = all_groups
-    m.reply(members_of[group].map { |name| deform(name) }.join(', '))
+    m.reply("#{group} has " + members_of[group].map { |name| deform(name) }.join(', '))
   end
 
   def ping(m, group)
@@ -48,11 +48,15 @@ class Ping
     m.reply(members_of[group].join(', '))
   end
 
-  def add(m, group, name)
+  def add(m, name, group)
     all_groups = load_groups
     members_of = all_groups
 
     if all_groups.has_key?(group)
+      if members_of[group].include?(name)
+        m.reply("#{name} is already in #{group}")
+        return
+      end
       members_of[group].push(name)
     else
       members_of[group] = [name]
@@ -63,7 +67,7 @@ class Ping
     m.reply("Added #{name} to #{group}")
   end
 
-  def remove(m, group, name)
+  def remove(m, name, group)
     all_groups = load_groups
 
     unless all_groups.has_key?(group)
