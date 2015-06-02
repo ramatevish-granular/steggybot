@@ -54,6 +54,10 @@ class Ping
     members_of = all_groups
 
     if all_groups.has_key?(group)
+      if members_of[group].include?(name)
+        m.reply("#{name} is already in #{group}")
+        return
+      end
       members_of[group].push(name)
     else
       members_of[group] = [name]
