@@ -5,19 +5,19 @@ class Ping
   include Cinch::Plugin
 
   @help_hash = {
-    :groups => "Usage: !groups",
-    :members => "Usage: !members group",
-    :ping => 'Usage: !ping group',
-    :addping => "Usage: !addping group name",
-    :removeping => "Usage: !removeping group name"
+    :ping => 'To ping all members of a specific group, use: !ping group',
+    :listall => "To list all the groups in existence, use: !ping listall",
+    :list => "To list all the members of a group without pinging them, use: !ping list group",
+    :add => "To add a name to a group, use: !ping add name to group",
+    :remove => "To remove a name from a group, use: !ping remove name from group"
   }
 
   listen_to :channel
-  match /allgroups/i,  method: :list_all_groups
-  match /members (.*)/i,  method: :list_members
-  match /ping (.*)/i,  method: :ping
-  match /addping (.*) (.*)/i,  method: :add
-  match /removeping (.*) (.*)/i,  method: :remove
+  match /ping listall/i,  method: :list_all_groups
+  match /ping list ([\w-]+)/i,  method: :list_members
+  match /ping add ([\w-]+) to ([\w-]+)/i,  method: :add
+  match /ping remove ([\w-]+) from ([\w-]+)/i,  method: :remove
+  match /ping ([\w-]+)/i,  method: :ping
 
   def initialize(*args)
     super
@@ -49,7 +49,7 @@ class Ping
     m.reply(members_of[group].join(', '))
   end
 
-  def add(m, group, name)
+  def add(m, name, group)
     all_groups = load_groups
     members_of = all_groups
 
@@ -64,7 +64,7 @@ class Ping
     m.reply("Added #{name} to #{group}")
   end
 
-  def remove(m, group, name)
+  def remove(m, name, group)
     all_groups = load_groups
 
     unless all_groups.has_key?(group)
