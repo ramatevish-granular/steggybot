@@ -10,7 +10,8 @@ class Ping
     :listall => "To list all the groups in existence, use: !ping listall",
     :list => "To list all the members of a group without pinging them, use: !ping list group",
     :add => "To add a name to a group, use: !ping add name to group",
-    :remove => "To remove a name from a group, use: !ping remove name from group"
+    :remove => "To remove a name from a group, use: !ping remove name from group",
+    :obliterate => "To remove a group, use: !ping obliterate group"
   }
 
   RESERVED = ['everyone','listall']
@@ -18,6 +19,7 @@ class Ping
   match /ping everyone/i,  method: :ping_everyone
   match /ping listall/i,  method: :list_all_groups
   match /ping list ([\w-]+)/i,  method: :list_members
+  match /ping obliterate ([\w-]+)/i,  method: :remove_group
   match /ping add ([\w-]+) to ([\w-]+)/i,  method: :add
   match /ping remove ([\w-]+) from ([\w-]+)/i,  method: :remove
   match /ping ([\w-]+)/i,  method: :ping
@@ -50,6 +52,20 @@ class Ping
     # no need for empty check since we remove the group when it becomes empty
     members_of = all_groups
     m.reply("#{group} has " + members_of[group].map { |name| deform(name) }.join(', '))
+  end
+
+  def remove_group(m, group)
+    all_groups = load_groups
+
+    unless all_groups.has_key?(group)
+      m.reply("Group #{group} does not exist")
+      return
+    end
+
+    members = all_groups.delete(group)
+    write_to_file(all_groups)
+
+    m.reply("#{group} has been removed: " + members.join(', '))
   end
 
   def ping(m, group)
