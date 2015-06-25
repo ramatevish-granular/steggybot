@@ -5,15 +5,21 @@ class Ping
   include Cinch::Plugin
 
   @help_hash = {
-    :ping => 'To ping all members of a specific group, use: !ping group',
+    :group => 'To ping all members of a specific group, use: !ping group',
+    :everyone => 'To ping everyone in the channel, use: !ping everyone',
     :listall => "To list all the groups in existence, use: !ping listall",
     :list => "To list all the members of a group without pinging them, use: !ping list group",
     :add => "To add a name to a group, use: !ping add name to group",
-    :remove => "To remove a name from a group, use: !ping remove name from group"
+    :remove => "To remove a name from a group, use: !ping remove name from group",
+    :obliterate => "To remove a group, use: !ping obliterate group"
   }
 
+  RESERVED = ['everyone','listall']
+
+  match /ping everyone/i,  method: :ping_everyone
   match /ping listall/i,  method: :list_all_groups
   match /ping list ([\w-]+)/i,  method: :list_members
+  match /ping obliterate ([\w-]+)/i,  method: :remove_group
   match /ping add ([\w-]+) to ([\w-]+)/i,  method: :add
   match /ping remove ([\w-]+) from ([\w-]+)/i,  method: :remove
   match /ping ([\w-]+)/i,  method: :ping
@@ -21,6 +27,11 @@ class Ping
   def initialize(*args)
     super
     @ping_file = config[:ping]
+  end
+
+  def ping_everyone(m)
+    everyone = Channel(m.channel).users.keys.reject { |user| user.is_a?(Cinch::Bot)} # everyone who's not a bot
+    m.reply(everyone.map { |user| user.nick}.join(', '))
   end
 
   def list_all_groups(m)
@@ -43,12 +54,31 @@ class Ping
     m.reply("#{group} has " + members_of[group].map { |name| deform(name) }.join(', '))
   end
 
+  def remove_group(m, group)
+    all_groups = load_groups
+
+    unless all_groups.has_key?(group)
+      m.reply("Group #{group} does not exist")
+      return
+    end
+
+    members = all_groups.delete(group)
+    write_to_file(all_groups)
+
+    m.reply("#{group} has been removed: " + members.join(', '))
+  end
+
   def ping(m, group)
     members_of = load_groups
     m.reply(members_of[group].join(', '))
   end
 
   def add(m, name, group)
+    if RESERVED.include?(group)
+      m.reply("#{group} is reserved")
+      return
+    end
+
     all_groups = load_groups
     members_of = all_groups
 
