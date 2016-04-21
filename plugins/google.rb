@@ -15,9 +15,9 @@ Returns the first google hit for THING"
   }
 
   def image(m, query)
-    url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=#{CGI.escape(query)}"
+    url = "https://www.googleapis.com/customsearch/v1?key=#{ENV['GOOGLE_APIKEY']}&q=#{CGI.escape(query)}&cx=#{ENV['GOOGLE_CX']}&&searchType=image&fields=items(link)"
     res = JSON.parse(Nokogiri::HTML(open(url)))
-    m.reply(res["responseData"]["results"].slice(0,9).sample["unescapedUrl"])
+    m.reply(res["items"].map {|x| x["link"]}.first)
   end
   def search(query)
     url = "http://www.google.com/search?q=#{CGI.escape(query)}"
