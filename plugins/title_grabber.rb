@@ -25,7 +25,7 @@ class TitleGrabber
   def grab_html_title(doc)
     page = Nokogiri::HTML(doc)
     return nil if page.css("title").empty?
-    return page.css("title").first.text
+    return page.css("title").first.text.gsub(/\s+/, " ")
   end
 
   def grab_pdf_title(doc)

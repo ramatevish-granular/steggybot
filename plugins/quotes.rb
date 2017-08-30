@@ -8,11 +8,14 @@ class Quotes
 Example: !addquote \"That steggybot sure is something\"",
       :quote => "Usage !quote [search]
 Example: !quote whunt",
-      :fortune => "Same as quote"
+      :fortune => "Same as quote",
+    :deletequote => "Usage: !deletequote $QUOTE_ID
+Example: !deletequote 1"
     }
   match /addquote (.+)/i, method: :addquote
   match /quote (.+)/i, method: :quote
   match /fortune/i, method: :quote
+  match /deletequote ([0-9]+)/i, method: :delete_quote
 
   def initialize(*args)
     super
@@ -26,21 +29,34 @@ Example: !quote whunt",
 
     # add it to the list
     existing_quotes = get_quotes || []
+    new_quote_id = existing_quotes.last["id"].to_i + 1
+    new_quote["id"] = new_quote_id
     existing_quotes << new_quote
-
-    # find the id of the new quote and set it based on where it was placed in the quote list
-    new_quote_index = existing_quotes.index(new_quote)
-    existing_quotes[new_quote_index]["id"] = new_quote_index + 1
-
+    
     # write it to the file
     output = File.new(@quotes_file, 'w')
     output.puts YAML.dump(existing_quotes)
     output.close
 
     # send reply that quote was added
-    m.reply "#{m.user.nick}: Quote successfully added as ##{new_quote_index + 1}."
+    m.reply "#{m.user.nick}: Quote successfully added as ##{new_quote_id}."
     m.reply "And now for your daily fortune:"
     m.reply quote_text(active_quotes.sample)
+  end
+
+  def delete_quote(m, id)
+    existing_quotes = get_quotes || []
+    to_delete = existing_quotes.find do |quote|
+      quote["id"].to_i == id.to_i && quote["added_by"] == m.user.nick
+    end
+
+    existing_quotes.delete(to_delete)
+    output = File.new(@quotes_file, 'w')
+    output.puts YAML.dump(existing_quotes)
+    output.close
+
+    m.reply "#{m.user.nick}: Quote # #{id} successfully deleted."
+    m.reply "Text was #{quote_text(to_delete)}"
   end
 
   def quote(m, search = nil)
@@ -80,11 +96,11 @@ Example: !quote whunt",
 
     quotes
   end
-  
+
   def active_quotes
    get_quotes.delete_if{ |q| q["deleted"] == true }
   end
-  
+
   def quote_text(quote)
      "##{quote["id"]} (#{quote["created_at"].strftime("%m/%d/%Y %I:%M %p")}) - #{quote["quote"]}"
   end

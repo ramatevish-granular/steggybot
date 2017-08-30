@@ -2,21 +2,46 @@ GEM
   remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.2)
+    activesupport (5.0.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
     addressable (2.3.6)
     afm (0.2.0)
+    autoparse (0.3.3)
+      addressable (>= 2.3.1)
+      extlib (>= 0.9.15)
+      multi_json (>= 1.0.0)
     builder (3.2.2)
     cinch (2.0.4)
+    concurrent-ruby (1.0.5)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.2)
     excon (0.41.0)
+    extlib (0.9.16)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     frenchrevcal-ruby (1.0.0)
+    google-api-client (0.8.2)
+      activesupport (>= 3.2)
+      addressable (~> 2.3)
+      autoparse (~> 0.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      launchy (~> 2.4)
+      multi_json (~> 1.10)
+      retriable (~> 1.4)
+      signet (~> 0.6)
     hashery (2.1.0)
+    i18n (0.8.1)
     json (1.8.1)
     jwt (1.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     levenshtein (0.2.2)
+    minitest (5.10.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -35,6 +60,7 @@ GEM
       ruby-rc4
       ttfunk
     rack (1.5.2)
+    retriable (1.4.1)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -45,8 +71,17 @@ GEM
     rspec-mocks (2.13.0)
     ruby-rc4 (0.1.5)
     safe_yaml (1.0.4)
+    signet (0.6.0)
+      addressable (~> 2.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      jwt (~> 1.0)
+      multi_json (~> 1.10)
     simple_oauth (0.3.0)
+    thread_safe (0.3.6)
     ttfunk (1.0.3)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -67,8 +102,12 @@ PLATFORMS
 DEPENDENCIES
   cinch
   frenchrevcal-ruby
+  google-api-client
   levenshtein
   nokogiri
   pdf-reader
   rspec
   youtube_it
+
+BUNDLED WITH
+   1.12.5

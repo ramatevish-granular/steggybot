@@ -8,7 +8,7 @@ bot = Cinch::Bot.new do
     c.nick = "steggybot"
     c.channels = ["#csua", "#csuatest"]
     c.plugins.plugins = [Google, UrbanDictionary, TitleGrabber, Quotes, Pokedex, Youtube, Ping,
-                         Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown, FrenchRevCal, FeatureRequest, MxSpook]
+                         Roll, WhoAreThesePeople, PlusPlus, Pazudora, Contributors, Countdown, FrenchRevCal, FeatureRequest, MxSpook, Wiki, YaBish]
     c.plugins.plugins << Help
     c.plugins.options[YaBish] = {
       :db => 'db/ya_bish',

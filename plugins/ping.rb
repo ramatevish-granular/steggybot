@@ -24,6 +24,14 @@ class Ping
   match /ping remove ([\w-]+) from ([\w-]+)/i,  method: :remove
   match /ping ([\w-]+)/i,  method: :ping
 
+  match /group everyone/i,  method: :ping_everyone
+  match /group listall/i,  method: :list_all_groups
+  match /group list ([\w-]+)/i,  method: :list_members
+  match /group obliterate ([\w-]+)/i,  method: :remove_group
+  match /group add ([\w-]+) to ([\w-]+)/i,  method: :add
+  match /group remove ([\w-]+) from ([\w-]+)/i,  method: :remove
+  match /group ([\w-]+)/i,  method: :ping
+
   def initialize(*args)
     super
     @ping_file = config[:ping]

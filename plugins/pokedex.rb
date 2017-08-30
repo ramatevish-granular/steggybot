@@ -3,6 +3,10 @@ require 'cinch'
 require 'levenshtein'
 require 'json'
 class Pokedex
+  CUSTOM_OVERRIDES = {
+    "heidi" => "ditto"
+  }
+
   include Cinch::Plugin
   # match /(all|poke)dex (.+)/
   match /pokedex (.+)/
@@ -14,7 +18,6 @@ class Pokedex
   end
 
   def get_pokedex_json
-    p Dir.pwd
     pokedex_file = File.new(config[:pokedex], 'r')
     data = JSON.parse(pokedex_file.read)
     pokedex_file.close
@@ -25,8 +28,13 @@ class Pokedex
     @json_data.keys
   end
 
+  def custom_overrides(key)
+    CUSTOM_OVERRIDES[key] || key
+  end
+
   def execute(m, given_name)
-    pokemon = @all_pokemon[@all_pokemon.map{ |this_pokemon| Levenshtein.distance(this_pokemon, given_name)}.each_with_index.min.last]
+    given_name = custom_overrides(given_name)
+    pokemon = @all_pokemon[@all_pokemon.map { |this_pokemon| Levenshtein.distance(this_pokemon, given_name)}.each_with_index.min.last]
     pokedex = @json_data[pokemon]
     species = pokedex['species']
     type = pokedex['type']
@@ -39,4 +47,3 @@ class Pokedex
     m.reply(rv, true )
   end
 end
-

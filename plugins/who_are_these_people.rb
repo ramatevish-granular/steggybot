@@ -60,7 +60,9 @@ class WhoAreThesePeople
     match = /who *is (\w+)/i.match(m.message)
     if match
       user = match[1]
-      if get_identities[user.downcase]
+      if get_identities[user.downcase] && user.downcase =~ /^whunt$/
+        m.reply "#{m.user.nick}: #{user} #{get_identities[user.downcase][:name]}"
+      else
         m.reply "#{m.user.nick}: #{user} is #{get_identities[user.downcase][:name]}"
       end
     end
