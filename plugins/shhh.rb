@@ -3,7 +3,7 @@ require 'cinch'
 class Shhh
   include Cinch::Plugin
 
-  authorized_users = ["czhangolin", "steggy", "wsong"]
+  $authorized_users = ["czhangolin", "steggy", "wsong"]
 
   match /quiet/, method: :be_quiet
 
@@ -29,7 +29,7 @@ Leaves if there's a name conflict or certain people ask"
   def force_quit(m, username)
     return unless username == bot.nick.downcase
 
-    if m.channel.opped?(m.user) || authorized_users.include?(m.user.nick.downcase)
+    if m.channel.opped?(m.user) || $authorized_users.include?(m.user.nick.downcase)
       bot.quit("bye")
     else
       m.reply("you are not on the sudoers list. this attempt has been reported.")
