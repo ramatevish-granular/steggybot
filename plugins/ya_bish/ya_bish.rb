@@ -22,7 +22,7 @@ class YaBish
 
 
   def listen(m)
-    isnt_steggybot = /steggybot/.match m.user.nick
+    isnt_steggybot = ! /steggybot/.match m.user.nick
     ya_bish = /ya bish|steggybot/.match m.message
     m.reply YaBish.ya_bish_array.sample if (ya_bish and isnt_steggybot)
   end
